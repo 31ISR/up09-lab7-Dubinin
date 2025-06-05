@@ -7,7 +7,7 @@ class Article(models.Model):
     desc = models.TextField()
     content = models.TextField()
     tags = models.CharField(
-        max_length=255,
+        max_length=255, 
         help_text="Строка с тегами, разделенными запятыми"
     )
     created_at = models.DateTimeField(auto_now_add=True)
