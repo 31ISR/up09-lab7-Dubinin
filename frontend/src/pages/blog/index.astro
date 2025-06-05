@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+
+const response = await fetch('http://localhost:8000/api/articles/');
+const articles = await response.json();
+---
+
+<BaseLayout title="Блог | Музыкальный сервис">
+  <h1>Последние статьи</h1>
+  
+  <div class="featured">
+    {articles.slice(0, 2).map(article => (
+      <ArticleCard article={article} />
+    ))}
+  </div>
+  
+  <div class="grid">
+    {articles.slice(2).map(article => (
+      <ArticleCard article={article} />
+    ))}
+  </div>
+</BaseLayout>
+
+<style>
+  h1 {
+    text-align: center;
+    margin: 2rem 0;
+  }
+  
+  .featured {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  @media (max-width: 768px) {
+    .featured {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
